@@ -322,3 +322,34 @@ header {
     opacity: 1;
     visibility: visible;
 }
+
+@media (max-width: 885px) {
+
+    .container main .main-block.player,
+    .container main .main-block.computer {
+        justify-content: center !important;
+    }
+}
+
+@media (max-width: 550px) {
+    .container main .main-block .controls {
+        padding: 8px;
+    }
+
+    .container main .main-block .board {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 500px) {
+    .container main .main-block.player {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 484px) {
+    .container {
+        height: -moz-fit-content !important;
+        height: fit-content !important;
+    }
+}
