@@ -1,0 +1,324 @@
+@import url('https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+* {
+    /* margin: 0;
+    padding: 0; */
+}
+
+body {
+    font-family: "Shantell Sans";
+    font-size: 3rem;
+    color: rgba(19, 97, 243, 0.733);
+    font-weight: 600;
+    position: relative;
+    height: 100vh;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100% !important;
+}
+
+header {
+    display: flex;
+    padding: 15px 0px;
+}
+
+.main-block {
+    display: flex;
+    flex: 1;
+    align-items: center;
+}
+
+.player {
+    justify-content: flex-end;
+}
+
+.computer {
+    justify-content: flex-start;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 32px 0 32px 32px;
+}
+
+.hide-element {
+    display: none !important;
+}
+
+.instruction {
+    font-size: 1rem;
+}
+
+.port {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dock {
+    display: flex;
+    position: relative;
+    border: 1px dotted rgba(0, 61, 175, 0.938);
+}
+
+.board .dock {
+    display: flex;
+    position: absolute;
+    margin: 2px;
+    justify-content: flex-end;
+    cursor: move;
+}
+
+.dock.d4 {
+    width: 120px;
+    height: 30px;
+}
+
+.dock.d3 {
+    width: 90px;
+    height: 30px;
+}
+
+.dock.d2 {
+    width: 60px;
+    height: 30px;
+}
+
+.dock.d1 {
+    width: 30px;
+    height: 30px;
+}
+
+.dock::after {
+    content: attr(data-amount);
+    position: absolute;
+    font-size: 20px;
+    right: -30px;
+}
+
+.ship {
+    display: flex;
+    position: absolute;
+    border: 2px solid rgb(0, 85, 241);
+    z-index: 2;
+    transition: all 0.1s ease;
+    margin: -2px;
+    left: 0;
+    top: 0;
+}
+
+
+.ship:hover {
+    cursor: pointer;
+}
+
+.ship[data-ishorizontal=false] {
+    flex-direction: column;
+}
+
+.ship__cell {
+    min-width: 30px;
+    min-height: 30px;
+    flex: 1;
+    background-color: rgba(224, 235, 255, 0.932);
+    pointer-events: none;
+}
+
+.buttons {
+    display: flex;
+}
+
+.buttons-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.buttons-wrap button {
+    padding: 5px;
+    font-family: "Shantell Sans";
+    border: 1px solid rgba(19, 97, 243, 0.733);
+    border-radius: 3px;
+    color: rgba(19, 97, 243, 0.733);
+    font-size: 14px;
+}
+
+.disabled-button {
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+.restart-button {
+    padding: 5px;
+    font-family: "Shantell Sans";
+    border: 1px solid rgba(19, 97, 243, 0.733);
+    border-radius: 3px;
+    color: rgba(19, 97, 243, 0.733);
+    font-size: 14px;
+    visibility: hidden;
+}
+
+.enabled-button {
+    padding: 5px;
+    font-family: "Shantell Sans";
+    border: 1px solid rgba(19, 97, 243, 0.733);
+    border-radius: 3px;
+    color: rgba(19, 97, 243, 0.733);
+    font-size: 14px;
+    visibility: visible;
+    cursor: pointer;
+}
+
+.enabled-button:hover {
+    transform: scale(1.05);
+}
+
+.buttons-wrap button:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.board {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+
+.board__grid {
+    height: 300px;
+    width: 300px;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    border: 1px solid rgb(71, 30, 252);
+    background-color: rgb(71, 30, 252);
+    opacity: 70%;
+    gap: 1px;
+}
+
+.board__grid .missed::after {
+    content: "•";
+    color: black;
+    font-size: 20px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.board__grid .hit::after {
+    content: "✖" !important;
+    color: red;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.board__grid .hit-player::after {
+    content: "✖" !important;
+    color: red;
+    z-index: 3;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.board__grid .hit {
+    background-color: rgb(255, 193, 193) !important;
+}
+
+.board__grid .missed {
+    /* border:  1px solid red; */
+}
+
+.board__label {
+    display: flex;
+    justify-content: center;
+    font-size: 22px;
+    padding-top: 5px;
+}
+
+.board__grid .cell {
+    background-color: white;
+    position: relative;
+    transition: all 0.1s ease;
+    text-align: center;
+}
+
+#grid-computer .cell:hover {
+    cursor: pointer;
+    background-color: rgba(224, 235, 255, 0.932);
+}
+
+.game-over-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(57, 72, 103, 0.5);
+    z-index: 90;
+    transition: all 0.1s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.game-over {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    z-index: 99;
+    background-color: #f1f6f9;
+    min-width: 300px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 16px;
+    transition: all 0.1s ease;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.game-over__winner {
+    font-size: 26px;
+}
+
+.game-over__play-again {
+    padding: 5px;
+    font-family: "Shantell Sans";
+    border: 1px solid rgba(19, 97, 243, 0.733);
+    border-radius: 3px;
+    color: rgba(19, 97, 243, 0.733);
+    font-size: 14px;
+}
+
+.game-over__play-again:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+.game-over-visible {
+    opacity: 1;
+    visibility: visible;
+}
